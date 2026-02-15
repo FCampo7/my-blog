@@ -24,8 +24,10 @@ app.get("/", (req, res) => {
 	res.render("welcome", { layout: "index" });
 });
 
-app.listen(PORT, () => {
-	console.log(`Server started on port http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+	app.listen(3000, () => {
+		console.log(`Server started on http://localhost:3000`);
+	});
+}
 
 export default app;
