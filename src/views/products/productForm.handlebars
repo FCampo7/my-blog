@@ -1,0 +1,19 @@
+<form action="/products" method="post">
+	<label for="nombre">Nombre de usuario</label>
+	<input type="text" name="nombre" id="nombre" />
+
+	<hr />
+	<h3>Productos</h3>
+
+	{{#each cant}}
+		<div class="producto-item">
+			<label>Nombre:</label>
+			<input type="text" name="productos[{{@index}}][nombre]" />
+			<label>Precio:</label>
+			<input type="text" name="productos[{{@index}}][precio]" />
+		</div>
+	{{/each}}
+
+	<br />
+	<button type="submit">Enviar Todo</button>
+</form>

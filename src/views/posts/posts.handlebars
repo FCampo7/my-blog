@@ -1,0 +1,26 @@
+<div id="posts">
+	<div
+		style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap:15px;"
+	>
+		<h2>Todos los posts</h2>
+		<button
+			class="btn-icon"
+			onclick="window.location.href='/posts/newPost'"
+		>➕</button>
+	</div>
+	{{#each posts}}
+		<div
+			style="display: flex; align-items: center; justify-content: space-between; gap:15px; margin-bottom: 5px;"
+			class="post"
+			id="{{this.id}}"
+		>
+			<a href="/posts/{{this.id}}">{{this.title}}</a>
+			<button
+				class="btn-icon"
+				onclick="deletePost('{{this.id}}')"
+			>🗑️</button>
+		</div>
+	{{/each}}
+</div>
+
+<script src="/js/handlebars-helpers.js"></script>
