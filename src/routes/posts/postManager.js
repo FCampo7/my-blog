@@ -1,5 +1,7 @@
 import fs from "fs";
 import { v4 as newId } from "uuid";
+import db from "../../firebase/config.js";
+import { collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
 
 class PostManager {
 	constructor(path) {
@@ -7,11 +9,12 @@ class PostManager {
 	}
 
 	async addPost(post) {
-		const posts = await fs.promises.readFile(this.path, "utf-8");
+		const postsRef = collection(db, "posts");
+		//const posts = await fs.promises.readFile(this.path, "utf-8");
 		const parsedPosts = JSON.parse(posts);
 
 		const newPost = {
-			id: newId(),
+			//id: newId(),
 			date: new Date().toLocaleString("es-AR"),
 			title: post.title,
 			content: post.content,
@@ -19,17 +22,25 @@ class PostManager {
 
 		parsedPosts.push(newPost);
 
-		await fs.promises.writeFile(
+		const docRef = await addDoc(postsRef, newPost);
+
+		newPost.id = docRef.id;
+		/*await fs.promises.writeFile(
 			this.path,
 			JSON.stringify(parsedPosts, null, 2),
-		);
+		);*/
 
 		return newPost;
 	}
 
 	async getPosts() {
-		const posts = await fs.promises.readFile(this.path, "utf-8");
-		const parsedPosts = JSON.parse(posts);
+		//const posts = await fs.promises.readFile(this.path, "utf-8");
+		const postsRef = collection(db, "posts");
+		const posts = await getDocs(postsRef);
+		const parsedPosts = posts.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
 		return parsedPosts;
 	}
 
@@ -42,11 +53,13 @@ class PostManager {
 	async deletePost(id) {
 		const posts = await this.getPosts();
 		const filteredPosts = posts.filter((post) => post.id !== id);
-		await fs.promises.writeFile(
+		const postsRef = collection(db, "posts");
+		await deleteDoc(doc(postsRef, id));
+		/*await fs.promises.writeFile(
 			this.path,
 			JSON.stringify(filteredPosts, null, 2),
-		);
-		return filteredPosts;
+		);*/
+		//return filteredPosts;
 	}
 }
 
