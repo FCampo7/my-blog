@@ -1,8 +1,8 @@
 import express from "express";
 import { engine } from "express-handlebars";
-import userRouter from "./routes/users/userRouter.js";
-import productRouter from "./routes/productos/productRouter.js";
-import postRouter from "./routes/posts/postRouter.js";
+import userRouter from "../src/routes/users/userRouter.js";
+import productRouter from "../src/routes/productos/productRouter.js";
+import postRouter from "../src/routes/posts/postRouter.js";
 
 const app = express();
 const PORT = 3000;
@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
 	res.render("welcome", { layout: "index" });
 });
 
-/*app.listen(PORT, () => {
+app.listen(PORT, () => {
 	console.log(`Server started on port http://localhost:${PORT}`);
-});*/
+});
 
 export default app;
