@@ -3,6 +3,8 @@ import { engine } from "express-handlebars";
 import userRouter from "../src/routes/users/userRouter.js";
 import productRouter from "../src/routes/productos/productRouter.js";
 import postRouter from "../src/routes/posts/postRouter.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -25,8 +27,8 @@ app.get("/", (req, res) => {
 });
 
 if (process.env.NODE_ENV !== "production") {
-	app.listen(3000, () => {
-		console.log(`Server started on http://localhost:3000`);
+	app.listen(PORT, () => {
+		console.log(`Server started on http://localhost:${PORT}`);
 	});
 }
 
