@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -6,12 +9,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: "AIzaSyDZOMz0iiERHFLvW1gwwdR_aT-m2Utsmgg",
-	authDomain: "fc-bloging.firebaseapp.com",
-	projectId: "fc-bloging",
-	storageBucket: "fc-bloging.firebasestorage.app",
-	messagingSenderId: "1097194961325",
-	appId: "1:1097194961325:web:449292d86c8ebdff6a0924",
+	apiKey: process.env.API_KEY_FIREBASE,
+	authDomain: process.env.AUTH_DOMAIN_FIREBASE,
+	projectId: process.env.PROJECT_ID_FIREBASE,
+	storageBucket: process.env.STORAGE_BUCKET_FIREBASE,
+	messagingSenderId: process.env.MESSAGING_SENDER_ID_FIREBASE,
+	appId: process.env.APP_ID_FIREBASE,
 };
 
 // Initialize Firebase
